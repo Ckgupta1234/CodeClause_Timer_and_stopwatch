@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="stopwatch">
+        <h1 id="DisplayTime">00:00:00</h1>
+        <div class="buttons">
+            <img src="pouse.png" onclick = "watchstop()">
+            <img src="play.png" onclick="watchstart()">
+            <img src="reset.jpg" onclick="watchreset()">
+        </div>
+    </div>
+    <script>
+        let [Seconds, Minutes, hours] = [0,0,0];
+        let DisplayTime = document.getElementById("DisplayTime");
+        let Timer = null;
+        function stopwatch(){
+            Seconds++;
+            if(Seconds == 60){
+                Seconds = 0;
+                Minutes++;
+                if(Minutes == 60){
+                    Minutes = 0;
+                    hours++;
+                }
+            }
+            let h = hours < 10 ? "0" + hours : hours;
+            let M = Minutes < 10 ? "0" + Minutes : Minutes;
+            let S = Seconds < 10 ? "0" + Seconds : Seconds;
+            DisplayTime.innerHTML = h +":"+ M +":"+ S;
+        }
+        function watchstart(){
+            if(Timer!== null){
+                clearInterval(Timer);
+            }
+            Timer = setInterval(stopwatch,1000);
+           
+        }
+        function watchstop(){
+            clearInterval(Timer); 
+        }
+        function watchreset(){
+            clearInterval(Timer); 
+            [Seconds, Minutes, hours] = [0,0,0];
+            DisplayTime.innerHTML = "00:00:00";
+        }
+    </script>
+</body>
+</html>
